@@ -30,7 +30,7 @@ public class ListActivity extends Activity implements OnItemClickListener{
 		Direction direction = (Direction) getIntent().getExtras().getSerializable("Direction");
 		final Timetable timetable = Timetable.getInstance();
 		timetable.update();
-		final TimetableAdapter adapter = new TimetableAdapter(getApplicationContext(),getItemByDirection(direction));
+		final TimetableAdapter adapter = new TimetableAdapter(getApplicationContext(),Timetable.getInstance().getTimetableByDirection(direction));
 		ListView listview = ((ListView) findViewById(R.id.list_1));
 				 listview.setAdapter(adapter);
 				// リストビューのアイテムが選択された時に呼び出されるコールバックリスナーを登録します
@@ -51,17 +51,6 @@ public class ListActivity extends Activity implements OnItemClickListener{
 	            });
 	        }
 	    }, (60-second)*1000, 60000);
-	}
-	private Timetable getItemByDirection(Direction direction) {
-		Timetable timetable = Timetable.getData();
-		if(direction != null)
-		{
-			for (Iterator<TimetableItem> iterator = timetable.iterator(); iterator.hasNext();) {
-				TimetableItem timetableItem = (TimetableItem) iterator.next();
-				if(! timetableItem.getDirection().equals(direction))iterator.remove();
-			}
-		}
-		return timetable;
 	}
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,long id) {

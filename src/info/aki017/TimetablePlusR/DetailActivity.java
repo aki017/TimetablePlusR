@@ -1,6 +1,5 @@
 package info.aki017.TimetablePlusR;
 
-import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -28,8 +27,7 @@ public class DetailActivity extends Activity {
 			mTitle.setText(timetableItem.getDirection().getName());
 			
 			
-			Timetable timetable = Timetable.getInstance();
-			timetable.add(timetableItem);
+			Timetable timetable = Timetable.getData().getTimetableByNo(timetableItem.getDirection(),timetableItem.getNo());
 			final DetailAdapter adapter = new DetailAdapter(getApplicationContext(),timetable);
 			ListView listview = ((ListView) findViewById(R.id.detail_list));
 					 listview.setAdapter(adapter);

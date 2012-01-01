@@ -1,5 +1,7 @@
 package info.aki017.TimetablePlusR;
 
+import java.util.Stack;
+
 import android.util.Log;
 
 public class Trace {
@@ -17,6 +19,11 @@ public class Trace {
 	public static void w(String tag,String str){ $log(android.util.Log.WARN,		tag,	str);	}
 	public static void e(String tag,String str){ $log(android.util.Log.ERROR,	tag,	str);	}
 
+	public static void e(Exception error)
+	{
+		StackTraceElement e = error.getStackTrace()[1];
+		log(android.util.Log.ERROR,e.getClassName()+"."+e.getMethodName(),error.getMessage());
+	}
 	public static void $log(int level,String str)
 	{
 		StackTraceElement e = new Exception().getStackTrace()[2];

@@ -40,13 +40,37 @@ public class Timetable implements List<TimetableItem>{
 	 */
 	public Timetable getTimetableByDirection(Direction direction)
 	{
-		Timetable tmp = new Timetable();
-		for(TimetableItem item:list)
+		Timetable timetable = Timetable.getData();
+		if(direction != null)
 		{
-			if (item.getDirection()==direction)
-			tmp.add(item);
+			for (Iterator<TimetableItem> iterator = timetable.iterator(); iterator.hasNext();) {
+				TimetableItem timetableItem = (TimetableItem) iterator.next();
+				if(! timetableItem.getDirection().equals(direction))iterator.remove();
+			}
 		}
-		return tmp;
+		return timetable;
+	}
+
+	/**
+	 * 指定したNoのバスの情報を返す
+	 * @param direction Direction;
+	 * @param no No
+	 * @return Timetable
+	 */
+	public Timetable getTimetableByNo(Direction direction,int no) {
+
+		Timetable timetable = Timetable.getData();
+		if(direction != null)
+		{
+			for (Iterator<TimetableItem> iterator = timetable.iterator(); iterator.hasNext();) {
+				TimetableItem timetableItem = (TimetableItem) iterator.next();
+				if(! timetableItem.getDirection().equals(direction))
+				{
+					iterator.remove();
+				}else if(!(timetableItem.getNo() == no))iterator.remove();
+			}
+		}
+		return timetable;
 	}
 	public TimetableItem get(int i)
 	{

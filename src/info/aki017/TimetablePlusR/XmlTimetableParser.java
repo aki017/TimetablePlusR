@@ -10,6 +10,7 @@ import java.net.URLConnection;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
+import android.R.xml;
 import android.util.Log;
 import android.util.Xml;
 
@@ -48,6 +49,7 @@ public class XmlTimetableParser implements TimetableParser {
 					Log.e(TAG, "何かがおかしい");
 					return false;
 				} else if (eventType == XmlPullParser.START_TAG) {
+					Trace.v("start tag :" + xmlPullParser.getName());
 					if (xmlPullParser.getName().equalsIgnoreCase("Timetable")) {
 						Log.d(TAG,"Start Timetable :" + xmlPullParser.getAttributeValue( xmlPullParser.getNamespace(),"Station"));
 						if(xmlPullParser.getAttributeValue(xmlPullParser.getNamespace(),"Station").replaceAll(" ", "").equals("立命館大学"))
@@ -56,12 +58,15 @@ public class XmlTimetableParser implements TimetableParser {
 						}
 					}
 				} else if (eventType == XmlPullParser.END_TAG) {
+					Trace.v("end tag");
 				} else if (eventType == XmlPullParser.TEXT) {
+					Trace.v(xmlPullParser.getText());
 				}
 				eventType = xmlPullParser.next();
 			}
 		} catch (Exception e) {
 			Log.d(TAG, "Error"+e.getMessage());
+			Trace.e(e);
 			return false;
 		}
 		return true;
@@ -90,6 +95,7 @@ public class XmlTimetableParser implements TimetableParser {
 			throws XmlPullParserException, IOException {
 		Log.d(TAG, "getItemData" + xmlPullParser.getDepth());
 		TimetableItem timetableItem = new TimetableItem();
+		timetableItem.setNo(Integer.parseInt(xmlPullParser.getAttributeValue(xmlPullParser.getNamespace(), "Number")));
 		int next;
 		// Itemが閉じるまで
 		while (((next = xmlPullParser.next()) != XmlPullParser.END_TAG)) {
