@@ -1,7 +1,7 @@
 package info.aki017.TimetablePlusR;
 
 public enum Way {
-	Panasonic("パナソニック"),
+	Panasonic("パナソニック東口"),
 	Kasayama("笠山"),
 	Kagayaki("かがやき通り");
 

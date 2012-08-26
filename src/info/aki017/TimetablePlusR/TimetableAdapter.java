@@ -32,7 +32,7 @@ public class TimetableAdapter extends ArrayAdapter<TimetableItem>{
 
 			//行き先表示
 			mWay = (TextView)convertView.findViewById(R.id.Way);
-			mWay.setText(String.format("(%s)", item.getWay().getName()) );
+			mWay.setText(String.format("(%.6s)", item.getWay().getName()) );
 			
 			//運行時間表示
 			mTimeData = (TextView)convertView.findViewById(R.id.Time);
