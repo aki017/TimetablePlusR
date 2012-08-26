@@ -18,14 +18,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
             android:text="行き先(経由地)"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="発車時刻 (残り時間)"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
     </LinearLayout>
 
     <ListView

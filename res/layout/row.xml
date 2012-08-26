@@ -12,18 +12,18 @@
         android:layout_width="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/CountDown"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:gravity="bottom"
-        android:text="出発時刻" />
+        android:text="○時○分" />
     <TextView
         android:id="@+id/CountDown"
         style="@style/row"
         android:layout_width="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:gravity="bottom"
-        android:text="CountDown" />
+        android:text="(後後 分)" />
 
     <TextView
         android:id="@+id/Direction"
@@ -31,16 +31,16 @@
         android:layout_width="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="24dp"
-        android:text="Direction"
-        android:textSize="24dp" />
+        android:text="行行行行"
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/Way"
         style="@style/row"
         android:layout_width="wrap_content"
         android:layout_toRightOf="@+id/Direction"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:gravity="bottom"
-        android:text="Way" />
+        android:text="(行行行行行行)" />
 
 </RelativeLayout>
