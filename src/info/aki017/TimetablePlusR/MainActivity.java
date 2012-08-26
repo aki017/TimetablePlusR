@@ -23,11 +23,12 @@ public class MainActivity extends TabActivity {
 		setContentView(R.layout.activity_main);
 		InputStream in = null;
 		try {
-			in = openFileInput("xtimetable.xml");
+			in = openFileInput("timetable.xml");
 		} catch (FileNotFoundException e) {
 				try {
+					deleteFile("timetable.xml");
 					OutputStream out = openFileOutput("timetable.xml",MODE_PRIVATE);
-					XmlTimetableParser.getXmlFromInternet(new URL("http://www.aki017.info/TimetablePlusR/timetable.xml"), out);
+					XmlTimetableParser.getXmlFromInternet(new URL("http://www.aki017.info/TimetablePlusR/test.xml"), out);
 					in = openFileInput("timetable.xml");
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
@@ -46,9 +47,10 @@ public class MainActivity extends TabActivity {
 		// TabHostのインスタンスを取得
 		TabHost tabs = getTabHost();
 		addTab(tabs,"すべて",timetable,ListActivity.class);
-		addTab(tabs,"南草津",timetable.getTimetable(Direction.Kusatu),ListActivity.class);
-		addTab(tabs,"草津",timetable.getTimetable(Direction.Minakusa),ListActivity.class);
+		addTab(tabs,"南草津",timetable.getTimetable(Direction.Minakusa),ListActivity.class);
+		addTab(tabs,"草津",timetable.getTimetable(Direction.Kusatu),ListActivity.class);
 		addTab(tabs,"大津",timetable.getTimetable(Direction.Tobishima),ListActivity.class);
+		addTab(tabs,"その他",timetable.getTimetable(Direction.Tobishima),ListActivity.class);
 		// 初期表示のタブ設定
 		tabs.setCurrentTab(0);
 	}

@@ -133,7 +133,7 @@ public class Timetable implements Serializable,List<TimetableItem>{
 		Calendar calendar = Calendar.getInstance();
 		int hour = calendar.get(Calendar.HOUR_OF_DAY);
 		int minute = calendar.get(Calendar.MINUTE);
-		for (Iterator iterator = list.iterator(); iterator.hasNext();) {
+		for (Iterator<TimetableItem> iterator = list.iterator(); iterator.hasNext();) {
 			TimetableItem item = (TimetableItem) iterator.next();
 			if((item.getTime()-(hour*60+minute))<=-5)iterator.remove();
 		}

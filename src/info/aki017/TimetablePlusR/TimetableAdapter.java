@@ -3,6 +3,7 @@ package info.aki017.TimetablePlusR;
 import java.util.Calendar;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ public class TimetableAdapter extends ArrayAdapter<TimetableItem>{
 		}
 		final TimetableItem item = this.getItem(position);
 		if(item != null){
+			convertView.setBackgroundColor(Color.argb(25, 255, 0, 0));
 			//行き先表示
 			mDirection = (TextView)convertView.findViewById(R.id.Direction);
 			mDirection.setText(String.format("%s行", item.getDirection().getName()) );

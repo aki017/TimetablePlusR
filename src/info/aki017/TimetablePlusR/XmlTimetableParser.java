@@ -26,24 +26,26 @@ public class XmlTimetableParser implements TimetableParser {
 			xmlPullParser.setInput(in,"UTF-8");
 			//xmlPullParser.setInput(new StringReader("<Timetable><item><direction>南草津</direction><way>笠山</way><time>6:50</time></item></Timetable>"));
 		} catch (XmlPullParserException e) {
-			Log.d(TAG, "Error");
+			e.printStackTrace();
 		}
 
 		try {
 			int eventType;
 			eventType = xmlPullParser.getEventType();
+			if(0<xmlPullParser.getAttributeCount())			Log.e("","aaaaaa");
+			Log.e("","aaaaaa");
 			while (eventType != XmlPullParser.END_DOCUMENT) {
 				if (eventType == XmlPullParser.START_DOCUMENT) {
 					Log.d(TAG, "Start document");
 				} else if (eventType == XmlPullParser.END_DOCUMENT) {
 					Log.d(TAG, "End document");
 				} else if (eventType == XmlPullParser.START_TAG) {
-					Log.d(TAG,
-							"Start tag " + xmlPullParser.getName());
+
+					if(xmlPullParser.getName().equalsIgnoreCase("Timetable"))
+					{					Log.d(TAG,
+							"Start tafffffffffffg " + xmlPullParser.getAttributeValue(xmlPullParser.getNamespace(), "Station") );
 					
-					if(xmlPullParser.getName().equalsIgnoreCase("ITEM"))
-					{
-						timetable.add(getItemData(xmlPullParser));
+						timetable= getTimetable(xmlPullParser);
 					}
 					Log.d(TAG,
 							"Start tag " + xmlPullParser.getName());
@@ -62,6 +64,34 @@ public class XmlTimetableParser implements TimetableParser {
 		return timetable;
 	}
 	
+	private Timetable getTimetable(XmlPullParser xmlPullParser) throws XmlPullParserException, IOException
+	{
+		Timetable timetable = new Timetable();
+
+		try {
+			int eventType;
+			eventType = xmlPullParser.getEventType();
+			while (eventType != XmlPullParser.END_TAG) {
+				if (eventType == XmlPullParser.START_TAG) {
+					Log.d(TAG,
+							"Start tag " + xmlPullParser.getName());
+					
+					if(xmlPullParser.getName().equalsIgnoreCase("ITEM"))
+					{
+						timetable.add(getItemData(xmlPullParser));
+					}
+					Log.d(TAG,
+							"Start tag " + xmlPullParser.getName());
+				} else if (eventType == XmlPullParser.END_TAG) {
+					if (xmlPullParser.getName().equalsIgnoreCase("Timetable"))return timetable;
+				}
+				eventType = xmlPullParser.next();
+			}
+		} catch (Exception e) {
+			Log.d(TAG, "Error");
+		}
+		return timetable;
+	}
 	private TimetableItem getItemData(XmlPullParser xmlPullParser) throws XmlPullParserException, IOException
 	{
 		TimetableItem timetableItem = new TimetableItem();
