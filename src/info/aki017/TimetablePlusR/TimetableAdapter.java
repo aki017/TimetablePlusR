@@ -13,6 +13,7 @@ import android.widget.TextView;
 public class TimetableAdapter extends ArrayAdapter<TimetableItem>{
 	private LayoutInflater mInflater;
 	private TextView mDirection;
+	private TextView mWay;
 	private TextView mCountDown;
 	private TextView mTimeData;
 	public TimetableAdapter(Context context, Timetable objects) {
@@ -27,7 +28,11 @@ public class TimetableAdapter extends ArrayAdapter<TimetableItem>{
 		if(item != null){
 			//行き先表示
 			mDirection = (TextView)convertView.findViewById(R.id.Direction);
-			mDirection.setText(String.format("%3s行", item.getDirection().getName()) );
+			mDirection.setText(String.format("%s行", item.getDirection().getName()) );
+
+			//行き先表示
+			mWay = (TextView)convertView.findViewById(R.id.Way);
+			mWay.setText(String.format("(%s)", item.getWay().getName()) );
 			
 			//運行時間表示
 			mTimeData = (TextView)convertView.findViewById(R.id.Time);

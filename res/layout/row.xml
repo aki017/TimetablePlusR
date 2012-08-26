@@ -29,8 +29,18 @@
         android:id="@+id/Direction"
         style="@style/row"
         android:layout_width="wrap_content"
-        android:layout_toLeftOf="@+id/Time"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="24dp"
         android:text="Direction"
         android:textSize="24dp" />
+
+    <TextView
+        android:id="@+id/Way"
+        style="@style/row"
+        android:layout_width="wrap_content"
+        android:layout_toRightOf="@+id/Direction"
+        android:textSize="16dp"
+        android:gravity="bottom"
+        android:text="Way" />
 
 </RelativeLayout>

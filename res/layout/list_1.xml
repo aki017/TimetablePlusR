@@ -1,8 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/list"
+    style="@style/AppTheme"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" 
-    android:id="@+id/list_1"
-    style="@style/AppTheme" >   
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
 
-</ListView>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_marginLeft="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text="行き先(経由地)"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="発車時刻 (残り時間)"
+            android:textSize="16dp" />
+    </LinearLayout>
+
+    <ListView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/list_1"
+        style="@style/AppTheme"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+    </ListView>
+
+</LinearLayout>
