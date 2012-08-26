@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/Row"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal"
+    android:padding="0dp" >
+
+    <TextView
+        android:id="@+id/Time"
+        style="@style/row"
+        android:layout_width="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/CountDown"
+        android:textSize="16dp"
+        android:gravity="bottom"
+        android:text="出発時刻" />
+    <TextView
+        android:id="@+id/CountDown"
+        style="@style/row"
+        android:layout_width="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:textSize="16dp"
+        android:gravity="bottom"
+        android:text="CountDown" />
+
+    <TextView
+        android:id="@+id/Direction"
+        style="@style/row"
+        android:layout_width="wrap_content"
+        android:layout_toLeftOf="@+id/Time"
+        android:text="Direction"
+        android:textSize="24dp" />
+
+</RelativeLayout>
