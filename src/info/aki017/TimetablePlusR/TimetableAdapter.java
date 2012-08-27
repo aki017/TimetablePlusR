@@ -4,6 +4,7 @@ import java.util.Calendar;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Path.Direction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +28,24 @@ public class TimetableAdapter extends ArrayAdapter<TimetableItem>{
 		}
 		final TimetableItem item = this.getItem(position);
 		if(item != null){
-			convertView.setBackgroundColor(Color.argb(25, 255, 0, 0));
+			if (item.getDirection() != info.aki017.TimetablePlusR.Direction.Minakusa)
+			{
+				convertView.setBackgroundColor(Color.argb(25, 255,  0, 255));
+			}
+			switch(item.getWay())
+			{
+			case Kagayaki:
+				convertView.setBackgroundColor(Color.argb(25, 255, 0, 0));
+				break;
+			case Kasayama:
+				convertView.setBackgroundColor(Color.argb(25, 0, 255, 0));
+				break;
+			case Panasonic:
+				convertView.setBackgroundColor(Color.argb(25, 0, 0, 255));
+				break;
+			default:
+				break;
+			}
 			//行き先表示
 			mDirection = (TextView)convertView.findViewById(R.id.Direction);
 			mDirection.setText(String.format("%s行", item.getDirection().getName()) );

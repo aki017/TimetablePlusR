@@ -1,7 +1,7 @@
 <resources>
 
     <string name="app_name">時刻表+R</string>
-    <string name="menu_settings">設定</string>
+    <string name="menu_settings">最新データに更新</string>
     <string name="title_activity_main">時刻表+R</string>
 
 </resources>
