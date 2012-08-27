@@ -15,123 +15,123 @@ import android.util.Xml;
 
 public class XmlTimetableParser implements TimetableParser {
 	private static String TAG = "PullParser";
-	public XmlTimetableParser()
-	{
+
+	public XmlTimetableParser() {
 	}
+
 	@Override
 	public Timetable getTimetable(InputStream in) {
 		Timetable timetable = new Timetable();
 		XmlPullParser xmlPullParser = Xml.newPullParser();
 		try {
-			xmlPullParser.setInput(in,"UTF-8");
-			//xmlPullParser.setInput(new StringReader("<Timetable><item><direction>南草津</direction><way>笠山</way><time>6:50</time></item></Timetable>"));
+			xmlPullParser.setInput(in, "UTF-8");
+			// xmlPullParser.setInput(new
+			// StringReader("<Timetable><item><direction>南草津</direction><way>笠山</way><time>6:50</time></item></Timetable>"));
 		} catch (XmlPullParserException e) {
+			Log.e(TAG,"InputError");
 			e.printStackTrace();
 		}
 
 		try {
 			int eventType;
 			eventType = xmlPullParser.getEventType();
-			if(0<xmlPullParser.getAttributeCount())			Log.e("","aaaaaa");
-			Log.e("","aaaaaa");
 			while (eventType != XmlPullParser.END_DOCUMENT) {
 				if (eventType == XmlPullParser.START_DOCUMENT) {
 					Log.d(TAG, "Start document");
 				} else if (eventType == XmlPullParser.END_DOCUMENT) {
 					Log.d(TAG, "End document");
 				} else if (eventType == XmlPullParser.START_TAG) {
-
-					if(xmlPullParser.getName().equalsIgnoreCase("Timetable"))
-					{					Log.d(TAG,
-							"Start tafffffffffffg " + xmlPullParser.getAttributeValue(xmlPullParser.getNamespace(), "Station") );
-					
-						timetable= getTimetable(xmlPullParser);
+					if (xmlPullParser.getName().equalsIgnoreCase("Timetable")) {
+						Log.d(TAG+"_","Start Timetable :"
+										+ xmlPullParser.getAttributeValue(
+												xmlPullParser.getNamespace(),
+												"Station"));
+						if(xmlPullParser.getAttributeValue(xmlPullParser.getNamespace(),"Station").replaceAll(" ", "").equals("立命館大学"))
+						{
+							timetable = getTimetable(xmlPullParser);
+						}
 					}
-					Log.d(TAG,
-							"Start tag " + xmlPullParser.getName());
+					Log.d(TAG, "Start tag " + xmlPullParser.getName());
 				} else if (eventType == XmlPullParser.END_TAG) {
-					Log.d(TAG,
-							"End tag " + xmlPullParser.getName());
+					Log.d(TAG, "End tag " + xmlPullParser.getName());
 				} else if (eventType == XmlPullParser.TEXT) {
-					Log.d(TAG,
-							"Text " + xmlPullParser.getText());
+					Log.d(TAG, "Text " + xmlPullParser.getText());
 				}
 				eventType = xmlPullParser.next();
 			}
 		} catch (Exception e) {
-			Log.d(TAG, "Error");
+			Log.d(TAG + "_", "Error");
 		}
 		return timetable;
 	}
-	
-	private Timetable getTimetable(XmlPullParser xmlPullParser) throws XmlPullParserException, IOException
-	{
+
+	private Timetable getTimetable(XmlPullParser xmlPullParser)
+			throws XmlPullParserException, IOException {
+		Log.d(TAG + "_", "getTimetable" + xmlPullParser.getDepth());
 		Timetable timetable = new Timetable();
 
-		try {
-			int eventType;
-			eventType = xmlPullParser.getEventType();
-			while (eventType != XmlPullParser.END_TAG) {
-				if (eventType == XmlPullParser.START_TAG) {
-					Log.d(TAG,
-							"Start tag " + xmlPullParser.getName());
-					
-					if(xmlPullParser.getName().equalsIgnoreCase("ITEM"))
-					{
-						timetable.add(getItemData(xmlPullParser));
-					}
-					Log.d(TAG,
-							"Start tag " + xmlPullParser.getName());
-				} else if (eventType == XmlPullParser.END_TAG) {
-					if (xmlPullParser.getName().equalsIgnoreCase("Timetable"))return timetable;
+		int eventType;
+		eventType = xmlPullParser.next();
+		while (eventType != XmlPullParser.END_TAG) {
+			if (eventType == XmlPullParser.START_TAG) {
+				Log.d(TAG+"_", "Start tag " + xmlPullParser.getName());
+
+				if (xmlPullParser.getName().equalsIgnoreCase("ITEM")) {
+
+					timetable.add(getItemData(xmlPullParser));
+					Log.w("Timetablenum", " " + timetable.size());
 				}
-				eventType = xmlPullParser.next();
+				Log.d(TAG, "Start tag " + xmlPullParser.getName());
+			} else if (eventType == XmlPullParser.END_TAG) {
+				if (xmlPullParser.getName().equalsIgnoreCase("Timetable"))
+					return timetable;
 			}
-		} catch (Exception e) {
-			Log.d(TAG, "Error");
+			eventType = xmlPullParser.next();
 		}
 		return timetable;
 	}
-	private TimetableItem getItemData(XmlPullParser xmlPullParser) throws XmlPullParserException, IOException
-	{
+
+	private TimetableItem getItemData(XmlPullParser xmlPullParser)
+			throws XmlPullParserException, IOException {
+		Log.d(TAG + "_", "getItemData" + xmlPullParser.getDepth());
 		TimetableItem timetableItem = new TimetableItem();
 		int next;
-		//Itemが閉じるまで
-		while(((next = xmlPullParser.next()) != XmlPullParser.END_TAG))
-		{
-			//Itemの要素
-			if (next==XmlPullParser.START_TAG)
-			{
-				if (xmlPullParser.getName().equalsIgnoreCase("DIRECTION"))
-				{
-					if(xmlPullParser.next() ==XmlPullParser.TEXT)timetableItem.setDirection(xmlPullParser.getText());
-				}else if (xmlPullParser.getName().equalsIgnoreCase("WAY"))
-				{
-					if(xmlPullParser.next() ==XmlPullParser.TEXT)
-					{
-						timetableItem.setWay(xmlPullParser.getText());
+		// Itemが閉じるまで
+		while (((next = xmlPullParser.next()) != XmlPullParser.END_TAG)) {
+			Log.d(TAG + "_", "getItemData_" + xmlPullParser.getDepth());
+			// Itemの要素
+			if (next == XmlPullParser.START_TAG) {
+				Log.d(TAG + "_", "getItemData_ " + xmlPullParser.getName());
+				if (xmlPullParser.getName().equalsIgnoreCase("DIRECTION")) {
+					if (xmlPullParser.next() == XmlPullParser.TEXT)
+						timetableItem.setDirection(xmlPullParser.getText());
+				} else if (xmlPullParser.getName().equalsIgnoreCase("WAY")) {
+					if (xmlPullParser.next() == XmlPullParser.TEXT) {
+						timetableItem.setWay(xmlPullParser.getText().replaceAll(" ", ""));
+						Log.w(TAG+"_",""+xmlPullParser.getText()+" -> "+timetableItem.getWay().getName()+"");
 					}
-				}else if (xmlPullParser.getName().equalsIgnoreCase("TIME"))
-				{
-					if(xmlPullParser.next() ==XmlPullParser.TEXT)
-					{
-						String[] t = xmlPullParser.getText().split(":");
-						timetableItem.setTime(Integer.parseInt(t[0])*60 +Integer.parseInt(t[1]) );
+				} else if (xmlPullParser.getName().equalsIgnoreCase("TIME")) {
+					if (xmlPullParser.next() == XmlPullParser.TEXT) {
+						String[] t = xmlPullParser.getText().replaceAll(" ", "").split(":");
+						timetableItem.setTime(Integer.parseInt(t[0]) * 60
+								+ Integer.parseInt(t[1]));
 					}
-				}else
-				{
+				} else {
+					Log.d(TAG + "_", "getItemData_ " + xmlPullParser.getName());
+					xmlPullParser.next();
 				}
-				while(xmlPullParser.next() !=XmlPullParser.END_TAG){
+				while (xmlPullParser.next() != XmlPullParser.END_TAG) {
 				}
-				
+
 			}
 		}
-		
-		Log.d(TAG,timetableItem.getDirection().getName());
-		Log.d(TAG,timetableItem.getWay().getName());
-		Log.d(TAG,timetableItem.getTimeText());
+
+		Log.d(TAG, timetableItem.getDirection().getName());
+		Log.d(TAG, timetableItem.getWay().getName());
+		Log.d(TAG, timetableItem.getTimeText());
 		return timetableItem;
 	}
+
 	public static void getXmlFromInternet(URL url, OutputStream out)
 			throws IOException {
 		URLConnection connection = url.openConnection();

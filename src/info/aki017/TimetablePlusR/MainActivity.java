@@ -42,15 +42,14 @@ public class MainActivity extends TabActivity {
 		}
 		TimetableParser parser = new XmlTimetableParser();
 		Timetable timetable = parser.getTimetable(in);
-
+		Log.w("Timetablenum",""+timetable.size());
 		timetable.sort(new TimetableItemComparator());
 		// TabHostのインスタンスを取得
 		TabHost tabs = getTabHost();
 		addTab(tabs,"すべて",timetable,ListActivity.class);
 		addTab(tabs,"南草津",timetable.getTimetable(Direction.Minakusa),ListActivity.class);
 		addTab(tabs,"草津",timetable.getTimetable(Direction.Kusatu),ListActivity.class);
-		addTab(tabs,"大津",timetable.getTimetable(Direction.Tobishima),ListActivity.class);
-		addTab(tabs,"その他",timetable.getTimetable(Direction.Tobishima),ListActivity.class);
+		addTab(tabs,"大津",timetable.getTimetable(Direction.Ootu),ListActivity.class);
 		// 初期表示のタブ設定
 		tabs.setCurrentTab(0);
 	}
