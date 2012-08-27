@@ -51,11 +51,8 @@ public class XmlTimetableParser implements TimetableParser {
 							timetable = getTimetable(xmlPullParser);
 						}
 					}
-					Log.d(TAG, "Start tag " + xmlPullParser.getName());
 				} else if (eventType == XmlPullParser.END_TAG) {
-					Log.d(TAG, "End tag " + xmlPullParser.getName());
 				} else if (eventType == XmlPullParser.TEXT) {
-					Log.d(TAG, "Text " + xmlPullParser.getText());
 				}
 				eventType = xmlPullParser.next();
 			}
@@ -74,14 +71,10 @@ public class XmlTimetableParser implements TimetableParser {
 		eventType = xmlPullParser.next();
 		while (eventType != XmlPullParser.END_TAG) {
 			if (eventType == XmlPullParser.START_TAG) {
-				Log.d(TAG+"_", "Start tag " + xmlPullParser.getName());
-
 				if (xmlPullParser.getName().equalsIgnoreCase("ITEM")) {
-
 					timetable.add(getItemData(xmlPullParser));
-					Log.w("Timetablenum", " " + timetable.size());
 				}
-				Log.d(TAG, "Start tag " + xmlPullParser.getName());
+				//Log.d(TAG, "Start tag " + xmlPullParser.getName());
 			} else if (eventType == XmlPullParser.END_TAG) {
 				if (xmlPullParser.getName().equalsIgnoreCase("Timetable"))
 					return timetable;
@@ -105,6 +98,7 @@ public class XmlTimetableParser implements TimetableParser {
 				if (xmlPullParser.getName().equalsIgnoreCase("DIRECTION")) {
 					if (xmlPullParser.next() == XmlPullParser.TEXT)
 						timetableItem.setDirection(xmlPullParser.getText());
+						Log.w(TAG+"_",""+xmlPullParser.getText()+" -> "+timetableItem.getDirection().getName()+"");
 				} else if (xmlPullParser.getName().equalsIgnoreCase("WAY")) {
 					if (xmlPullParser.next() == XmlPullParser.TEXT) {
 						timetableItem.setWay(xmlPullParser.getText().replaceAll(" ", ""));

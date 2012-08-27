@@ -35,7 +35,7 @@ public class MainActivity extends TabActivity {
 				deleteFile("timetable.xml");
 				OutputStream out = openFileOutput("timetable.xml", MODE_PRIVATE);
 				XmlTimetableParser.getXmlFromInternet(new URL(
-						"http://www.aki017.info/TimetablePlusR/test.xml"), out);
+						"http://www.aki017.info/TimetablePlusR/timetable.xml"), out);
 				in = openFileInput("timetable.xml");
 			} catch (FileNotFoundException e1) {
 				e1.printStackTrace();
@@ -92,7 +92,7 @@ public class MainActivity extends TabActivity {
 			public void run() {
 				try {
 					OutputStream out = openFileOutput("timetable.xml",MODE_PRIVATE);
-					XmlTimetableParser.getXmlFromInternet(new URL("http://www.aki017.info/TimetablePlusR/test.xml"),out);
+					XmlTimetableParser.getXmlFromInternet(new URL("http://www.aki017.info/TimetablePlusR/timetable.xml"),out);
 					handler.post(new Runnable() {
 						@Override
 						public void run() {
