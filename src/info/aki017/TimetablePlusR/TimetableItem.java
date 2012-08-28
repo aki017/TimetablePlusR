@@ -1,6 +1,9 @@
 package info.aki017.TimetablePlusR;
 
-public class TimetableItem {
+import java.io.Serializable;
+
+public class TimetableItem implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private int time=-10000000;
 	private Direction direction = Direction.Minakusa;
 	private Way way = Way.Kasayama;
