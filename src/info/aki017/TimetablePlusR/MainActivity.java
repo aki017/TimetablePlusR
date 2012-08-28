@@ -24,7 +24,7 @@ public class MainActivity extends TabActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.main);
 		InputStream in = null;
 		try {
 			in = openFileInput("timetable.xml");
@@ -33,27 +33,34 @@ public class MainActivity extends TabActivity {
 			try {
 				in = openFileInput("timetable.xml");
 			} catch (FileNotFoundException e1) {
-				// TODO Auto-generated catch block
+				//TODO : ファイルが存在しない場合
 				e1.printStackTrace();
 			}
 		}
 		TimetableParser parser = new XmlTimetableParser();
 		Timetable timetable = parser.getTimetable(in);
-		Log.w("Timetablenum", "" + timetable.size());
 		timetable.sort(new TimetableItemComparator());
 		// TabHostのインスタンスを取得
 		TabHost tabs = getTabHost();
 		addTab(tabs, "すべて", timetable, ListActivity.class);
-		addTab(tabs, "南草津", timetable.getTimetable(Direction.Minakusa),
+		addTab(tabs, "南草津", timetable.getTimetableByDirection(Direction.Minakusa),
 				ListActivity.class);
-		addTab(tabs, "草津", timetable.getTimetable(Direction.Kusatu),
+		addTab(tabs, "草津", timetable.getTimetableByDirection(Direction.Kusatu),
 				ListActivity.class);
-		addTab(tabs, "大津", timetable.getTimetable(Direction.Ootu),
+		addTab(tabs, "大津", timetable.getTimetableByDirection(Direction.Ootu),
 				ListActivity.class);
 		// 初期表示のタブ設定
 		tabs.setCurrentTab(0);
 	}
 
+	/**
+	 * タブを追加する
+	 * 
+	 * @param host TabHost
+	 * @param name タブに表示する名前
+	 * @param timatable 時刻表のデータ
+	 * @param myclass 表示するActivityのクラス
+	 */
 	private void addTab(TabHost host, String name, Timetable timetable,
 			Class<ListActivity> myclass) {
 		TabSpec tab = host.newTabSpec(name);
@@ -75,6 +82,10 @@ public class MainActivity extends TabActivity {
 		updateXmlfile();
 		return super.onOptionsItemSelected(item);
 	}
+	/**
+	 * 時刻表のデータを取得する
+	 * ただし、非同期で実行するため正しく取得できたかわからない
+	 */
 	public void updateXmlfile()
 	{
 		Toast.makeText(this, "更新します", Toast.LENGTH_LONG).show();

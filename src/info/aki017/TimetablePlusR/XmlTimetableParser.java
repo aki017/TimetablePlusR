@@ -13,6 +13,8 @@ import org.xmlpull.v1.XmlPullParserException;
 import android.util.Log;
 import android.util.Xml;
 
+//TODO : 自分でも読めない
+//TODO : 後で書く
 public class XmlTimetableParser implements TimetableParser {
 	private static String TAG = "PullParser";
 

@@ -8,9 +8,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+/**
+ * Widget
+ */
+// TODO : 未実装
 public class TimetableWidgetProvider extends AppWidgetProvider {
 	private static final String TAG = "Widget";
-	private static final long INTERVAL = 60000; // 5分
+	private static final long INTERVAL = 60000; // 1分
 
 	@Override
 	public void onEnabled(Context context) {

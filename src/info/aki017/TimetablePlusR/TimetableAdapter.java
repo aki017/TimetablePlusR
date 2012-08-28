@@ -27,7 +27,10 @@ public class TimetableAdapter extends ArrayAdapter<TimetableItem>{
 			convertView = mInflater.inflate(R.layout.row, null);
 		}
 		final TimetableItem item = this.getItem(position);
+		
 		if(item != null){
+			
+			//色設定
 			if (item.getDirection() != info.aki017.TimetablePlusR.Direction.Minakusa)
 			{
 				convertView.setBackgroundColor(Color.argb(25, 255,  0, 255));

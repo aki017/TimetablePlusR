@@ -9,6 +9,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+/**
+ * Timetable implements Serializable,List<TimetableItem>
+ * 基本的にList
+ */
 public class Timetable implements Serializable,List<TimetableItem>{
 	private static final long serialVersionUID = 1L;
 	private List<TimetableItem> list = new ArrayList<TimetableItem>();
@@ -23,7 +27,12 @@ public class Timetable implements Serializable,List<TimetableItem>{
 	public Timetable()
 	{
 	}
-	public Timetable getTimetable(Direction direction)
+	/**
+	 * 指定したDirectionと同じところにいくTimetableを返す
+	 * @param direction Direction
+	 * @return 同じDirectionのTimetable
+	 */
+	public Timetable getTimetableByDirection(Direction direction)
 	{
 		Timetable tmp = new Timetable();
 		for(TimetableItem item:list)
@@ -129,6 +138,10 @@ public class Timetable implements Serializable,List<TimetableItem>{
 	public <T> T[] toArray(T[] array) {
 		return list.toArray(array);
 	}
+	/**
+	 * 時刻をすぎてしまったTimetableItemを削除する<br>
+	 * 一度削除したデータは復元できない
+	 */
 	public void update() {
 		Calendar calendar = Calendar.getInstance();
 		int hour = calendar.get(Calendar.HOUR_OF_DAY);

@@ -13,11 +13,13 @@ import android.widget.TextView;
 public class ListActivity extends Activity{
 	Timer   mTimer   = null;
 	Handler mHandler = new Handler();
-	
+	//UIの更新する間隔(ms)　残り時間用
+	final static int INTERVAL = 60000;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.list_1);
+		
 		final Timetable timetable = (Timetable) getIntent().getExtras().getSerializable("TimeTable");
 		timetable.update();
 		final TimetableAdapter adapter = new TimetableAdapter(getApplicationContext(),timetable);
@@ -29,7 +31,7 @@ public class ListActivity extends Activity{
 		mTimer.schedule( new TimerTask(){
 	        @Override
 	        public void run() {
-	            // mHandlerを通じてUI Threadへ処理をキューイング
+	            // UIスレッド以外では描画を更新できないので
 	            mHandler.post( new Runnable() {
 	                public void run() {
 	                	timetable.update();
