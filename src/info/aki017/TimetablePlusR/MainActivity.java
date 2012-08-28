@@ -29,20 +29,10 @@ public class MainActivity extends TabActivity {
 		try {
 			in = openFileInput("timetable.xml");
 		} catch (FileNotFoundException e) {
-
-			Toast.makeText(this, "データをダウンロードします", Toast.LENGTH_LONG).show();
+			updateXmlfile();
 			try {
-				deleteFile("timetable.xml");
-				OutputStream out = openFileOutput("timetable.xml", MODE_PRIVATE);
-				XmlTimetableParser.getXmlFromInternet(new URL(
-						"http://www.aki017.info/TimetablePlusR/timetable.xml"), out);
 				in = openFileInput("timetable.xml");
 			} catch (FileNotFoundException e1) {
-				e1.printStackTrace();
-			} catch (MalformedURLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
@@ -82,7 +72,11 @@ public class MainActivity extends TabActivity {
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
-
+		updateXmlfile();
+		return super.onOptionsItemSelected(item);
+	}
+	public void updateXmlfile()
+	{
 		Toast.makeText(this, "更新します", Toast.LENGTH_LONG).show();
 		final Context context = getApplicationContext();
 		final Handler handler = new Handler();
@@ -112,7 +106,6 @@ public class MainActivity extends TabActivity {
 				}
 
 			}
-		}).start();
-		return super.onOptionsItemSelected(item);
+		}).start();		
 	}
 }
