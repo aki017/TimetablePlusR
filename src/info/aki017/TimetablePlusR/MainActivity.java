@@ -39,8 +39,7 @@ public class MainActivity extends TabActivity {
 			}
 		}
 		TimetableParser parser = new XmlTimetableParser();
-		if (!parser.parse(in)) ;
-		//Trace.e("パース失敗");
+		if (!parser.parse(in)) Trace.e("パース失敗");
 		
 		// TabHostのインスタンスを取得
 		TabHost tabs = getTabHost();
