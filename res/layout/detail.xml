@@ -10,10 +10,12 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="TextView"
+        android:padding="12dp"
+        android:gravity="center"
         android:textSize="32sp" />
 
     <ListView
-        android:id="@+id/listView1"
+        android:id="@+id/detail_list"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
     </ListView>

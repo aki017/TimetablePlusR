@@ -1,11 +1,13 @@
 package info.aki017.TimetablePlusR;
 
+import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class DetailActivity extends Activity {
@@ -18,9 +20,20 @@ public class DetailActivity extends Activity {
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.detail);
 			
+			//Intent間の受け渡し
 			final TimetableItem timetableItem = (TimetableItem) getIntent().getExtras().getSerializable("TimeTableItem");
+			
+			//タイトル設定
 			TextView mTitle = ((TextView) findViewById(R.id.detail_title));
-			mTitle.setText(""+timetableItem.getTimeText());
+			mTitle.setText(timetableItem.getDirection().getName());
+			
+			
+			Timetable timetable = new Timetable();
+			timetable.add(timetableItem);
+			final DetailAdapter adapter = new DetailAdapter(getApplicationContext(),timetable);
+			ListView listview = ((ListView) findViewById(R.id.detail_list));
+					 listview.setAdapter(adapter);
+				    			
 			mTimer = new Timer(true);
 			mTimer.schedule( new TimerTask(){
 		        @Override

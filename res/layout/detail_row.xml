@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal" >
+
+    <TextView
+        android:id="@+id/detail_time"
+        style="@style/row"
+        android:layout_width="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="00:00" />
+
+    <TextView
+        android:id="@+id/detail_direction"
+        style="@style/row"
+        android:layout_width="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/detail_time"
+        android:text="direction" />
+
+    <TextView
+        android:id="@+id/detail_cost"
+        style="@style/row"
+        android:layout_width="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="¥000" />
+
+</RelativeLayout>
