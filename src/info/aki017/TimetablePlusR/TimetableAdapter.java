@@ -18,8 +18,8 @@ public class TimetableAdapter extends ArrayAdapter<TimetableItem>{
 	private TextView mWay;
 	private TextView mCountDown;
 	private TextView mTimeData;
-	public TimetableAdapter(Context context, Timetable objects) {
-		super(context, 0, objects);
+	public TimetableAdapter(Context context, Timetable timetable) {
+		super(context, 0, timetable);
 		mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 	public View getView(final int position, View convertView, ViewGroup parent) {

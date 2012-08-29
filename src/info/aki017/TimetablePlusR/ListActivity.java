@@ -1,6 +1,8 @@
 package info.aki017.TimetablePlusR;
 
 import java.util.Calendar;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -25,9 +27,10 @@ public class ListActivity extends Activity implements OnItemClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.list_1);
 		
-		final Timetable timetable = (Timetable) getIntent().getExtras().getSerializable("TimeTable");
+		Direction direction = (Direction) getIntent().getExtras().getSerializable("Direction");
+		final Timetable timetable = Timetable.getInstance();
 		timetable.update();
-		final TimetableAdapter adapter = new TimetableAdapter(getApplicationContext(),timetable);
+		final TimetableAdapter adapter = new TimetableAdapter(getApplicationContext(),getItemByDirection(direction));
 		ListView listview = ((ListView) findViewById(R.id.list_1));
 				 listview.setAdapter(adapter);
 				// リストビューのアイテムが選択された時に呼び出されるコールバックリスナーを登録します
@@ -48,6 +51,17 @@ public class ListActivity extends Activity implements OnItemClickListener{
 	            });
 	        }
 	    }, (60-second)*1000, 60000);
+	}
+	private Timetable getItemByDirection(Direction direction) {
+		Timetable timetable = Timetable.getData();
+		if(direction != null)
+		{
+			for (Iterator<TimetableItem> iterator = timetable.iterator(); iterator.hasNext();) {
+				TimetableItem timetableItem = (TimetableItem) iterator.next();
+				if(! timetableItem.getDirection().equals(direction))iterator.remove();
+			}
+		}
+		return timetable;
 	}
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,long id) {

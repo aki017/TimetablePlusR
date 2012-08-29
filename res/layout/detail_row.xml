@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:layout_marginLeft="12dp"
         android:text="00:00" />
 
     <TextView
@@ -28,5 +29,15 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:text="¥000" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/detail_direction"
+        android:gravity="center"
+        android:text="TextView" />
 
 </RelativeLayout>

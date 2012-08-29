@@ -24,6 +24,7 @@ public class MainActivity extends TabActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		setContentView(R.layout.main);
 		InputStream in = null;
 		try {
@@ -38,17 +39,15 @@ public class MainActivity extends TabActivity {
 			}
 		}
 		TimetableParser parser = new XmlTimetableParser();
-		Timetable timetable = parser.getTimetable(in);
-		timetable.sort(new TimetableItemComparator());
+		if (!parser.parse(in)) ;
+		//Trace.e("パース失敗");
+		
 		// TabHostのインスタンスを取得
 		TabHost tabs = getTabHost();
-		addTab(tabs, "すべて", timetable, ListActivity.class);
-		addTab(tabs, "南草津", timetable.getTimetableByDirection(Direction.Minakusa),
-				ListActivity.class);
-		addTab(tabs, "草津", timetable.getTimetableByDirection(Direction.Kusatu),
-				ListActivity.class);
-		addTab(tabs, "大津", timetable.getTimetableByDirection(Direction.Ootu),
-				ListActivity.class);
+		addTab(tabs, "すべて", null , ListActivity.class);
+		addTab(tabs, "南草津", Direction.Minakusa,ListActivity.class);
+		addTab(tabs, "草津", Direction.Kusatu,ListActivity.class);
+		addTab(tabs, "大津", Direction.Ootu,	ListActivity.class);
 		// 初期表示のタブ設定
 		tabs.setCurrentTab(0);
 	}
@@ -61,12 +60,12 @@ public class MainActivity extends TabActivity {
 	 * @param timatable 時刻表のデータ
 	 * @param myclass 表示するActivityのクラス
 	 */
-	private void addTab(TabHost host, String name, Timetable timetable,
+	private void addTab(TabHost host, String name, Direction direction,
 			Class<ListActivity> myclass) {
 		TabSpec tab = host.newTabSpec(name);
 		Intent intent = new Intent();
 		intent.setClass(this, myclass);
-		intent.putExtra("TimeTable", timetable);
+		intent.putExtra("Direction", direction);
 		tab.setIndicator(name);
 		tab.setContent(intent);
 		host.addTab(tab);

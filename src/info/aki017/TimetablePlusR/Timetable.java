@@ -1,32 +1,38 @@
 package info.aki017.TimetablePlusR;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
 /**
- * Timetable implements Serializable,List<TimetableItem>
+ * Timetable implements List<TimetableItem>
  * 基本的にList
  */
-public class Timetable implements Serializable,List<TimetableItem>{
-	private static final long serialVersionUID = 1L;
+public class Timetable implements List<TimetableItem>{
+	private static final Timetable instance = new Timetable();
 	private List<TimetableItem> list = new ArrayList<TimetableItem>();
-	public Timetable(List<TimetableItem> list)
+	
+	public static Timetable getInstance()
+	{
+		return instance;
+	}
+	public void add(List<TimetableItem> list)
 	{
 		this.list.addAll(list);
 	}
-	public Timetable(Collection<TimetableItem> array)
+	public void add(Collection<TimetableItem> array)
 	{
 		this.list.addAll(array);
 	}
-	public Timetable()
+	private Timetable()
 	{
 	}
+	
 	/**
 	 * 指定したDirectionと同じところにいくTimetableを返す
 	 * @param direction Direction
@@ -150,5 +156,19 @@ public class Timetable implements Serializable,List<TimetableItem>{
 			TimetableItem item = (TimetableItem) iterator.next();
 			if((item.getTime()-(hour*60+minute))<=-5)iterator.remove();
 		}
+	}
+	private List<TimetableItem> getList()
+	{
+		return this.list;
+	}
+	public Timetable clone()
+	{
+		Timetable timetable = new Timetable();
+		for(TimetableItem item:Timetable.getInstance().getList())
+			timetable.add(item);
+		return timetable;
+	}
+	public static Timetable getData() {
+		return (Timetable) getInstance().clone();
 	}
 }

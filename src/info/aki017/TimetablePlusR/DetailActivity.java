@@ -28,7 +28,7 @@ public class DetailActivity extends Activity {
 			mTitle.setText(timetableItem.getDirection().getName());
 			
 			
-			Timetable timetable = new Timetable();
+			Timetable timetable = Timetable.getInstance();
 			timetable.add(timetableItem);
 			final DetailAdapter adapter = new DetailAdapter(getApplicationContext(),timetable);
 			ListView listview = ((ListView) findViewById(R.id.detail_list));
