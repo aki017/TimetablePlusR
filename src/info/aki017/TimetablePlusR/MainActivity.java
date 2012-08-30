@@ -1,5 +1,9 @@
 package info.aki017.TimetablePlusR;
 
+import info.aki017.TimetablePlusR.Timetable.TimetableParser;
+import info.aki017.TimetablePlusR.Timetable.XmlTimetableParser;
+import info.aki017.TimetablePlusR.TimetableItem.Direction;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;

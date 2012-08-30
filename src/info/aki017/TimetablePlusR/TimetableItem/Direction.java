@@ -1,4 +1,4 @@
-package info.aki017.TimetablePlusR;
+package info.aki017.TimetablePlusR.TimetableItem;
 
 public enum Direction {
 	Kusatu("草津"),

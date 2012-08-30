@@ -1,4 +1,7 @@
-package info.aki017.TimetablePlusR;
+package info.aki017.TimetablePlusR.Timetable;
+
+import info.aki017.TimetablePlusR.Trace;
+import info.aki017.TimetablePlusR.TimetableItem.TimetableItem;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -1,5 +1,8 @@
 package info.aki017.TimetablePlusR;
 
+import info.aki017.TimetablePlusR.Timetable.Timetable;
+import info.aki017.TimetablePlusR.TimetableItem.TimetableItem;
+
 import java.util.Calendar;
 
 import android.content.Context;

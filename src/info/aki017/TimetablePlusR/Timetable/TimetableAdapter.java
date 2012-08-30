@@ -1,4 +1,9 @@
-package info.aki017.TimetablePlusR;
+package info.aki017.TimetablePlusR.Timetable;
+
+import info.aki017.TimetablePlusR.R;
+import info.aki017.TimetablePlusR.R.id;
+import info.aki017.TimetablePlusR.R.layout;
+import info.aki017.TimetablePlusR.TimetableItem.TimetableItem;
 
 import java.util.Calendar;
 
@@ -31,7 +36,7 @@ public class TimetableAdapter extends ArrayAdapter<TimetableItem>{
 		if(item != null){
 			
 			//色設定
-			if (item.getDirection() != info.aki017.TimetablePlusR.Direction.Minakusa)
+			if (item.getDirection() != info.aki017.TimetablePlusR.TimetableItem.Direction.Minakusa)
 			{
 				convertView.setBackgroundColor(Color.argb(25, 255,  0, 255));
 			}

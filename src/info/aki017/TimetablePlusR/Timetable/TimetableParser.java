@@ -1,8 +1,8 @@
-package info.aki017.TimetablePlusR;
+package info.aki017.TimetablePlusR.Timetable;
 
 import java.io.InputStream;
 
-interface TimetableParser {
+public interface TimetableParser {
 	/**
 	 * パースする
 	 * @param in InputStream

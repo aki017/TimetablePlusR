@@ -1,4 +1,8 @@
-package info.aki017.TimetablePlusR;
+package info.aki017.TimetablePlusR.Timetable;
+
+import info.aki017.TimetablePlusR.TimetableItem.Direction;
+import info.aki017.TimetablePlusR.TimetableItem.TimetableItem;
+import info.aki017.TimetablePlusR.TimetableItem.TimetableItemComparator;
 
 import java.util.ArrayList;
 import java.util.Calendar;

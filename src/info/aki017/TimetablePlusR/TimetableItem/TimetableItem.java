@@ -1,4 +1,5 @@
-package info.aki017.TimetablePlusR;
+package info.aki017.TimetablePlusR.TimetableItem;
+
 
 import java.io.Serializable;
 
