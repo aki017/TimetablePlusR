@@ -38,6 +38,6 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/detail_direction"
         android:gravity="center"
-        android:text="TextView" />
+        android:text="↓" />
 
 </RelativeLayout>

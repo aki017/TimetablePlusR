@@ -31,7 +31,7 @@ public class DetailAdapter extends ArrayAdapter<TimetableItem>{
 		if(item != null){
 			//行き先表示
 			mDirection = (TextView)convertView.findViewById(R.id.detail_direction);
-			mDirection.setText(String.format("%s", item.getDirection().getName()) );
+			mDirection.setText(String.format("%s", item.getStation()) );
 
 			//運行時間表示
 			mTimeData = (TextView)convertView.findViewById(R.id.detail_time);
@@ -42,7 +42,7 @@ public class DetailAdapter extends ArrayAdapter<TimetableItem>{
 			Calendar calendar = Calendar.getInstance();
 			int hour = calendar.get(Calendar.MINUTE);
 			int minute = calendar.get(Calendar.SECOND);
-			mCountDown.setText(String.format("(後%3s¥)",(item.getTime()+(hour*60+minute))));
+			mCountDown.setText(String.format("(%3s¥)",(item.getTime()+(hour*60+minute))));
 
 		}
 		return convertView ;

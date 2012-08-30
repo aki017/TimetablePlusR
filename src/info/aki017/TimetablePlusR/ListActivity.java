@@ -31,11 +31,14 @@ public class ListActivity extends Activity implements OnItemClickListener{
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.list_1);
-		
+
+
 		Direction direction = (Direction) getIntent().getExtras().getSerializable("Direction");
-		final Timetable timetable = Timetable.getInstance();
+		String station = getIntent().getExtras().getString("Station");
+
+		final Timetable timetable = Timetable.getInstance().getTimetableByDirection(direction).getTimetableByStation(station);
 		timetable.update();
-		final TimetableAdapter adapter = new TimetableAdapter(getApplicationContext(),Timetable.getInstance().getTimetableByDirection(direction));
+		final TimetableAdapter adapter = new TimetableAdapter(getApplicationContext(),timetable);
 		ListView listview = ((ListView) findViewById(R.id.list_1));
 				 listview.setAdapter(adapter);
 				// リストビューのアイテムが選択された時に呼び出されるコールバックリスナーを登録します

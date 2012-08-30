@@ -69,6 +69,7 @@ public class MainActivity extends TabActivity {
 		Intent intent = new Intent();
 		intent.setClass(this, myclass);
 		intent.putExtra("Direction", direction);
+		intent.putExtra("Station", "立命館大学");
 		tab.setIndicator(name);
 		tab.setContent(intent);
 		host.addTab(tab);

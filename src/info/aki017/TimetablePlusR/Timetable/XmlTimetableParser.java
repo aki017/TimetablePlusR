@@ -55,10 +55,8 @@ public class XmlTimetableParser implements TimetableParser {
 					Trace.v("start tag :" + xmlPullParser.getName());
 					if (xmlPullParser.getName().equalsIgnoreCase("Timetable")) {
 						Log.d(TAG,"Start Timetable :" + xmlPullParser.getAttributeValue( xmlPullParser.getNamespace(),"Station"));
-						if(xmlPullParser.getAttributeValue(xmlPullParser.getNamespace(),"Station").replaceAll(" ", "").equals("立命館大学"))
-						{
-							if(!getTimetable(xmlPullParser)) return false;
-						}
+						
+						if(!getTimetable(xmlPullParser,xmlPullParser.getAttributeValue( xmlPullParser.getNamespace(),"Station").replaceAll(" ", ""))) return false;
 					}
 				} else if (eventType == XmlPullParser.END_TAG) {
 					Trace.v("end tag");
@@ -75,7 +73,7 @@ public class XmlTimetableParser implements TimetableParser {
 		return true;
 	}
 
-	private boolean getTimetable(XmlPullParser xmlPullParser)
+	private boolean getTimetable(XmlPullParser xmlPullParser,String station)
 			throws XmlPullParserException, IOException {
 		Log.d(TAG, "getTimetable" + xmlPullParser.getDepth());
 		Timetable timetable = Timetable.getInstance();
@@ -84,7 +82,7 @@ public class XmlTimetableParser implements TimetableParser {
 		while ((eventType = xmlPullParser.next()) != XmlPullParser.END_TAG) {
 			if (eventType == XmlPullParser.START_TAG) {
 				if (xmlPullParser.getName().equalsIgnoreCase("ITEM")) {
-					timetable.add(getItemData(xmlPullParser));
+					timetable.add(getItemData(xmlPullParser,station));
 				}
 				//Log.d(TAG, "Start tag " + xmlPullParser.getName());
 			} else if (eventType == XmlPullParser.END_TAG) {
@@ -94,7 +92,7 @@ public class XmlTimetableParser implements TimetableParser {
 		return true;
 	}
 
-	private TimetableItem getItemData(XmlPullParser xmlPullParser)
+	private TimetableItem getItemData(XmlPullParser xmlPullParser,String station)
 			throws XmlPullParserException, IOException {
 		Log.d(TAG, "getItemData" + xmlPullParser.getDepth());
 		TimetableItem timetableItem = new TimetableItem();
@@ -130,7 +128,8 @@ public class XmlTimetableParser implements TimetableParser {
 
 			}
 		}
-
+		timetableItem.setStation(station);
+		Log.d(TAG, timetableItem.getStation());
 		Log.d(TAG, timetableItem.getDirection().getName());
 		Log.d(TAG, timetableItem.getWay().getName());
 		Log.d(TAG, timetableItem.getTimeText());
@@ -141,7 +140,7 @@ public class XmlTimetableParser implements TimetableParser {
 			throws IOException {
 		URLConnection connection = url.openConnection();
 		InputStream in = connection.getInputStream();
-
+		Trace.v("Start Download");
 		int b;
 		while ((b = in.read()) != -1) {
 			out.write(b);

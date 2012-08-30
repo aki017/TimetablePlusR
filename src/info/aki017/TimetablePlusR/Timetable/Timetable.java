@@ -76,6 +76,28 @@ public class Timetable implements List<TimetableItem>{
 		}
 		return timetable;
 	}
+
+	/**
+	 * 指定したバス停の情報を返す
+	 * @param station Station
+	 * @return Timetable
+	 */
+	public Timetable getTimetableByStation(String station) {
+
+		Timetable timetable = Timetable.getData();
+		if(station != null)
+		{
+			for (Iterator<TimetableItem> iterator = timetable.iterator(); iterator.hasNext();) {
+				TimetableItem timetableItem = (TimetableItem) iterator.next();
+				if(! timetableItem.getStation().equals(station))
+				{
+					iterator.remove();
+				};
+			}
+		}
+		return timetable;
+	}
+	
 	public TimetableItem get(int i)
 	{
 		return list.get(i);

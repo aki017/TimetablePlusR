@@ -7,6 +7,7 @@ public class TimetableItem implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private int time=-10000000;
 	private int no = 0;
+	private String station = "";
 	private Direction direction = Direction.Minakusa;
 	private Way way = Way.Kasayama;
 
@@ -21,11 +22,12 @@ public class TimetableItem implements Serializable{
 	 * @param direction Direction
 	 * @param way Way
 	 */
-	public TimetableItem(int time,Direction direction,Way way,int no) {
+	public TimetableItem(int time,Direction direction,Way way,int no,String station) {
 		this.time = time;
 		this.direction = direction;
 		this.way = way;
 		this.no = no;
+		this.station = station;
 	}
 	/**
 	 * 時間を取得
@@ -87,5 +89,13 @@ public class TimetableItem implements Serializable{
 	}
 	public void setNo(int no) {
 		this.no = no;
+	}
+	public String getStation()
+	{
+		return this.station;
+	}
+	public void setStation(String station)
+	{
+		this.station = station;
 	}
 }
