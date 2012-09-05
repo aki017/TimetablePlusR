@@ -98,4 +98,13 @@ public class TimetableItem implements Serializable{
 	{
 		this.station = station;
 	}
+	
+	public boolean isSameStation(String station)
+	{
+		return (this.station.equals(station)) ? true : false;
+	}
+	public boolean isSameDirection(Direction direction)
+	{
+		return (this.direction.equals(direction)) ? true : false;
+	}
 }

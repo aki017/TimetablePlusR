@@ -48,7 +48,7 @@ public class MainActivity extends TabActivity {
 		// TabHostのインスタンスを取得
 		TabHost tabs = getTabHost();
 		addTab(tabs, "すべて", null , ListActivity.class);
-		addTab(tabs, "南草津", Direction.Minakusa,ListActivity.class);
+		addTab(tabs, "南草津", Direction.Minakusa,TimetableFragment.class);
 		addTab(tabs, "草津", Direction.Kusatu,ListActivity.class);
 		addTab(tabs, "大津", Direction.Ootu,	ListActivity.class);
 		// 初期表示のタブ設定
@@ -64,7 +64,7 @@ public class MainActivity extends TabActivity {
 	 * @param myclass 表示するActivityのクラス
 	 */
 	private void addTab(TabHost host, String name, Direction direction,
-			Class<ListActivity> myclass) {
+			Class myclass) {
 		TabSpec tab = host.newTabSpec(name);
 		Intent intent = new Intent();
 		intent.setClass(this, myclass);
