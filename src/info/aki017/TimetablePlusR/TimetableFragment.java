@@ -4,6 +4,7 @@ import info.aki017.TimetablePlusR.Timetable.Timetable;
 import info.aki017.TimetablePlusR.Timetable.TimetableAdapter;
 import info.aki017.TimetablePlusR.TimetableItem.Direction;
 import info.aki017.TimetablePlusR.TimetableItem.TimetableItem;
+import info.aki017.TimetablePlusR.TimetableItem.TimetableItemComparator;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -32,7 +33,8 @@ public class TimetableFragment extends Fragment implements OnItemClickListener{
 
 		Timetable timetable = Timetable.getInstance().getTimetableByDirection(direction).getTimetableByStation(station);
 		timetable.update();
-		Trace.e(""
+		timetable.sort(new TimetableItemComparator());
+		/*Trace.e(""
 				+" : "+Timetable.getInstance().getTimetableByDirection(direction).size()
 				+" : "+Timetable.getInstance().getTimetableByDirection(direction).getTimetableByStation(station).size()
 				+" : "+Timetable.getInstance().getTimetableByStation(station).size()
@@ -40,7 +42,7 @@ public class TimetableFragment extends Fragment implements OnItemClickListener{
 				+" : "+station
 				+" : "+timetable.size()
 				+" : "+timetable.get(0).getDirection().getName()
-		);
+		);*/
 
 		mAdapter = new TimetableAdapter(getActivity(),timetable);
 		mAdapter.notifyDataSetChanged();

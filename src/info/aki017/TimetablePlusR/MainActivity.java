@@ -21,8 +21,6 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity {
-
-	private MainActivity mContext;
 	private MainPagerAdapter mPagerAdapter;
 	private ViewPager mViewPager;
 	@Override
@@ -44,10 +42,12 @@ public class MainActivity extends FragmentActivity {
 				e1.printStackTrace();
 			}
 		}
+		if(in != null)
+		{
+		
 		TimetableParser parser = new XmlTimetableParser();
 		if (!parser.parse(in)) Trace.e("パース失敗");
 
-	    mContext = this;
 	    mPagerAdapter = new MainPagerAdapter(getSupportFragmentManager());
 	    mViewPager = (ViewPager) findViewById(R.id.viewpager);
 	    PagerTabStrip pagerTabStrip = (PagerTabStrip) findViewById(R.id.pager_tab_strip);
@@ -55,21 +55,11 @@ public class MainActivity extends FragmentActivity {
         pagerTabStrip.setDrawFullUnderline(true);
         pagerTabStrip.setTabIndicatorColor(Color.DKGRAY);
 
-        mPagerAdapter.addTab("すべて",Direction.Minakusa,"立命館大学");
-        mPagerAdapter.addTab("南草津",Direction.Minakusa,"立命館大学");
-        mPagerAdapter.addTab("草津",Direction.Kusatu,"立命館大学");
-        mPagerAdapter.addTab("test2",Direction.Kusatu,"立命館大学");
-	    
-		/*
-		// TabHostのインスタンスを取得
-		TabHost tabs = getTabHost();
-		addTab(tabs, "すべて", null , ListActivity.class);
-		addTab(tabs, "南草津", Direction.Minakusa,TimetableFragment.class);
-		addTab(tabs, "草津", Direction.Kusatu,ListActivity.class);
-		addTab(tabs, "大津", Direction.Ootu,	ListActivity.class);
-		// 初期表示のタブ設定
-		tabs.setCurrentTab(0);
-		*/ 
+        mPagerAdapter.addTab("すべて",null,"立命館大学");
+        mPagerAdapter.addTab("南草津駅",Direction.Minakusa,"立命館大学");
+        mPagerAdapter.addTab("草津駅",Direction.Kusatu,"立命館大学");
+        mPagerAdapter.addTab("大津駅",Direction.Ootu,"立命館大学");
+		}
 	}
 
 
