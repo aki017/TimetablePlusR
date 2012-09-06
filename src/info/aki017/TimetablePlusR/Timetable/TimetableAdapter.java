@@ -1,16 +1,13 @@
 package info.aki017.TimetablePlusR.Timetable;
 
 import info.aki017.TimetablePlusR.R;
-import info.aki017.TimetablePlusR.R.id;
-import info.aki017.TimetablePlusR.R.layout;
 import info.aki017.TimetablePlusR.TimetableItem.TimetableItem;
 
 import java.util.Calendar;
+import java.util.List;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Path.Direction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +20,7 @@ public class TimetableAdapter extends ArrayAdapter<TimetableItem>{
 	private TextView mWay;
 	private TextView mCountDown;
 	private TextView mTimeData;
-	public TimetableAdapter(Context context, Timetable timetable) {
+	public TimetableAdapter(Context context, List<TimetableItem> timetable) {
 		super(context, 0, timetable);
 		mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}

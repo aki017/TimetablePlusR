@@ -1,5 +1,6 @@
 package info.aki017.TimetablePlusR.Timetable;
 
+import info.aki017.TimetablePlusR.Trace;
 import info.aki017.TimetablePlusR.TimetableItem.Direction;
 import info.aki017.TimetablePlusR.TimetableItem.TimetableItem;
 import info.aki017.TimetablePlusR.TimetableItem.TimetableItemComparator;
@@ -44,13 +45,16 @@ public class Timetable implements List<TimetableItem>{
 	 */
 	public Timetable getTimetableByDirection(Direction direction)
 	{
-		Timetable timetable = Timetable.getData();
+		Timetable timetable = this.clone();
 		if(direction != null)
 		{
 			for (Iterator<TimetableItem> iterator = timetable.iterator(); iterator.hasNext();) {
 				TimetableItem timetableItem = (TimetableItem) iterator.next();
-				if(! timetableItem.getDirection().equals(direction))iterator.remove();
+				if(! (timetableItem.getDirection() == direction))iterator.remove();
 			}
+		}else
+		{
+			Trace.w("getTimetableByDirection = null");
 		}
 		return timetable;
 	}
@@ -63,7 +67,7 @@ public class Timetable implements List<TimetableItem>{
 	 */
 	public Timetable getTimetableByNo(Direction direction,int no) {
 
-		Timetable timetable = Timetable.getData();
+		Timetable timetable = this.clone();
 		if(direction != null)
 		{
 			for (Iterator<TimetableItem> iterator = timetable.iterator(); iterator.hasNext();) {
@@ -84,17 +88,20 @@ public class Timetable implements List<TimetableItem>{
 	 */
 	public Timetable getTimetableByStation(String station) {
 
-		Timetable timetable = Timetable.getData();
+		Trace.e(this.size());
+		Timetable timetable = this.clone();
+		Trace.e(timetable.size());
 		if(station != null)
 		{
 			for (Iterator<TimetableItem> iterator = timetable.iterator(); iterator.hasNext();) {
 				TimetableItem timetableItem = (TimetableItem) iterator.next();
-				if(! timetableItem.getStation().equals(station))
+				if(! timetableItem.getStation().trim().equals(station))
 				{
 					iterator.remove();
 				};
 			}
 		}
+		Trace.e(timetable.size());
 		return timetable;
 	}
 	
@@ -214,7 +221,7 @@ public class Timetable implements List<TimetableItem>{
 	public Timetable clone()
 	{
 		Timetable timetable = new Timetable();
-		for(TimetableItem item:Timetable.getInstance().getList())
+		for(TimetableItem item:this.getList())
 			timetable.add(item);
 		return timetable;
 	}

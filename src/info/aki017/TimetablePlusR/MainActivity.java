@@ -5,31 +5,33 @@ import info.aki017.TimetablePlusR.Timetable.XmlTimetableParser;
 import info.aki017.TimetablePlusR.TimetableItem.Direction;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 
-import android.app.TabActivity;
 import android.content.Context;
-import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.PagerTabStrip;
+import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TabHost;
-import android.widget.TabHost.TabSpec;
 import android.widget.Toast;
 
-public class MainActivity extends TabActivity {
+public class MainActivity extends FragmentActivity {
 
+	private MainActivity mContext;
+	private MainPagerAdapter mPagerAdapter;
+	private ViewPager mViewPager;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.main);
+		
+
 		InputStream in = null;
 		try {
 			in = openFileInput("timetable.xml");
@@ -44,7 +46,21 @@ public class MainActivity extends TabActivity {
 		}
 		TimetableParser parser = new XmlTimetableParser();
 		if (!parser.parse(in)) Trace.e("パース失敗");
-		
+
+	    mContext = this;
+	    mPagerAdapter = new MainPagerAdapter(getSupportFragmentManager());
+	    mViewPager = (ViewPager) findViewById(R.id.viewpager);
+	    PagerTabStrip pagerTabStrip = (PagerTabStrip) findViewById(R.id.pager_tab_strip);
+	    mViewPager.setAdapter(mPagerAdapter);
+        pagerTabStrip.setDrawFullUnderline(true);
+        pagerTabStrip.setTabIndicatorColor(Color.DKGRAY);
+
+        mPagerAdapter.addTab("すべて",Direction.Minakusa,"立命館大学");
+        mPagerAdapter.addTab("南草津",Direction.Minakusa,"立命館大学");
+        mPagerAdapter.addTab("草津",Direction.Kusatu,"立命館大学");
+        mPagerAdapter.addTab("test2",Direction.Kusatu,"立命館大学");
+	    
+		/*
 		// TabHostのインスタンスを取得
 		TabHost tabs = getTabHost();
 		addTab(tabs, "すべて", null , ListActivity.class);
@@ -53,27 +69,10 @@ public class MainActivity extends TabActivity {
 		addTab(tabs, "大津", Direction.Ootu,	ListActivity.class);
 		// 初期表示のタブ設定
 		tabs.setCurrentTab(0);
+		*/ 
 	}
 
-	/**
-	 * タブを追加する
-	 * 
-	 * @param host TabHost
-	 * @param name タブに表示する名前
-	 * @param timatable 時刻表のデータ
-	 * @param myclass 表示するActivityのクラス
-	 */
-	private void addTab(TabHost host, String name, Direction direction,
-			Class myclass) {
-		TabSpec tab = host.newTabSpec(name);
-		Intent intent = new Intent();
-		intent.setClass(this, myclass);
-		intent.putExtra("Direction", direction);
-		intent.putExtra("Station", "立命館大学");
-		tab.setIndicator(name);
-		tab.setContent(intent);
-		host.addTab(tab);
-	}
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

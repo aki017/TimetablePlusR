@@ -33,6 +33,7 @@ public class GetTimetableLoader extends AsyncTaskLoader<List<TimetableItem>> {
 	}
 	private boolean isSameStation(TimetableItem item)
 	{
+		if (stations.length == 0)return true;
 		for (int i = 0; i < stations.length; i++) {
 			if(item.isSameStation(stations[i]))return true;
 		}
@@ -40,6 +41,7 @@ public class GetTimetableLoader extends AsyncTaskLoader<List<TimetableItem>> {
 	}
 	private boolean isSameDirection(TimetableItem item)
 	{
+		if (directions.length == 0) return true;
 		for (int i = 0; i < directions.length; i++) {
 			if(item.isSameDirection(directions[i]))return true;
 		}
@@ -63,6 +65,7 @@ public class GetTimetableLoader extends AsyncTaskLoader<List<TimetableItem>> {
 	
 	@Override
 	protected void onStartLoading() {
+		Trace.e("test");
 		if (this.result != null) {
 			deliverResult(this.result);
 		}
