@@ -6,7 +6,7 @@ import java.io.Serializable;
 import android.graphics.Color;
 
 public class TimetableItem implements Serializable{
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 	private int time=-10000000;
 	private int no = 0;
 	private String station = "";

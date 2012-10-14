@@ -1,6 +1,8 @@
 package info.aki017.TimetablePlusR.TimetableItem;
 
-public class Way {
+import java.io.Serializable;
+
+public class Way implements Serializable{
 	private String way;
 	public Way(String str)
 	{
