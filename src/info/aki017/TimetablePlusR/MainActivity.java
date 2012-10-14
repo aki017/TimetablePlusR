@@ -13,7 +13,10 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
@@ -28,7 +31,7 @@ public class MainActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.main);
-		
+		//showDialog();
 
 		InputStream in = null;
 		try {
@@ -109,6 +112,21 @@ public class MainActivity extends FragmentActivity {
 				}
 
 			}
-		}).start();		
+		}).start();
+	}
+	void showDialog() {
+	    // DialogFragment.show() will take care of adding the fragment
+	    // in a transaction.  We also want to remove any currently showing
+	    // dialog, so make our own transaction and take care of that here.
+	    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+	    Fragment prev = getSupportFragmentManager().findFragmentByTag("dialog");
+	    if (prev != null) {
+	        ft.remove(prev);
+	    }
+	    ft.addToBackStack(null);
+
+	    // Create and show the dialog.
+	    DialogFragment newFragment = GetXMLDialog.newInstance(1);
+	    newFragment.show(ft, "dialog");
 	}
 }

@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/CountDown"
+        android:layout_alignBottom="@+id/Direction"
         android:textSize="12sp"
         android:gravity="bottom"
         android:text="○時○分" />
@@ -20,7 +21,7 @@
         style="@style/row"
         android:layout_width="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
+        android:layout_alignBottom="@+id/Direction"
         android:textSize="12sp"
         android:gravity="bottom"
         android:text="(後後 分)" />
@@ -30,6 +31,7 @@
         style="@style/row"
         android:layout_width="wrap_content"
         android:layout_alignParentLeft="true"
+        android:layout_alignBottom="@+id/Direction"
         android:layout_marginLeft="10dp"
         android:text="行行行行"
         android:textSize="18sp" />
@@ -38,9 +40,10 @@
         android:id="@+id/Way"
         style="@style/row"
         android:layout_width="wrap_content"
+        android:layout_alignBottom="@+id/Direction"
         android:layout_toRightOf="@+id/Direction"
-        android:textSize="12sp"
         android:gravity="bottom"
-        android:text="(行行行行行行)" />
+        android:text="(行行行行行行)"
+        android:textSize="12sp" />
 
 </RelativeLayout>

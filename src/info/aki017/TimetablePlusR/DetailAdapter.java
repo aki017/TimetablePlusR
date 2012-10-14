@@ -40,9 +40,21 @@ public class DetailAdapter extends ArrayAdapter<TimetableItem>{
 			//カウントダウン表示
 			mCountDown = (TextView)convertView.findViewById(R.id.detail_cost);
 			Calendar calendar = Calendar.getInstance();
-			int hour = calendar.get(Calendar.MINUTE);
-			int minute = calendar.get(Calendar.SECOND);
-			mCountDown.setText(String.format("(%3s¥)",(item.getTime()+(hour*60+minute))));
+			int hour = calendar.get(Calendar.HOUR_OF_DAY);
+			int minute = calendar.get(Calendar.MINUTE);
+			int second = calendar.get(Calendar.SECOND);
+			int time = hour*60*60+minute*60+second;
+			mCountDown.setText(
+					(item.getTime()*60>time)
+							?
+								(item.getTime()*60-time >= 100)
+									?
+										String.format("後%s分" ,item.getTime()-time/60)
+									:
+										String.format("後%s秒" ,item.getTime()*60-time)
+							:
+								""
+					);
 
 		}
 		return convertView ;

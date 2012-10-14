@@ -3,13 +3,15 @@ package info.aki017.TimetablePlusR.TimetableItem;
 
 import java.io.Serializable;
 
+import android.graphics.Color;
+
 public class TimetableItem implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private int time=-10000000;
 	private int no = 0;
 	private String station = "";
 	private Direction direction = Direction.Minakusa;
-	private Way way = Way.Kasayama;
+	private Way way;
 
 	/**
 	 * アイテムを生成
@@ -73,9 +75,7 @@ public class TimetableItem implements Serializable{
 	 * @param text 有効そうな文字列
 	 */
 	public void setWay(String text) {
-		for (Way test : Way.values()) {
-			if (test.getName().equals(text))way = test;
-		}
+		way = new Way(text);
 	}
 	/**
 	 * 時刻データを文字列で取得
@@ -106,5 +106,9 @@ public class TimetableItem implements Serializable{
 	public boolean isSameDirection(Direction direction)
 	{
 		return (this.direction.equals(direction)) ? true : false;
+	}
+	public int getColor() {
+		//TODO:　未実装
+		return Color.argb(25, 16*(no%16), 16*(no/16%16), 16*(no/16/16%16));
 	}
 }

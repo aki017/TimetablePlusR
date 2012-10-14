@@ -67,7 +67,7 @@ public class ListActivity extends Activity implements OnItemClickListener{
         TimetableItem item = (TimetableItem) listView.getItemAtPosition(position);
 
 		Intent intent = new Intent();
-		intent.setClass(this, DetailActivity.class);
+		intent.setClass(this, DetailsActivity.class);
 		intent.putExtra("TimeTableItem", item);
 		startActivity(intent);
 	}

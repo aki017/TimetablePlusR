@@ -3,7 +3,7 @@ package info.aki017.TimetablePlusR;
 import android.util.Log;
 
 public class Trace {
-	private final static boolean DEBUG = true;
+	private final static boolean DEBUG = false;
 	private Trace(){}
 	public static void v(String str){ if(DEBUG)$log(android.util.Log.VERBOSE,	str);	}
 	public static void d(String str){ if(DEBUG)$log(android.util.Log.DEBUG,	str);	}

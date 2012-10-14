@@ -32,25 +32,8 @@ public class TimetableAdapter extends ArrayAdapter<TimetableItem>{
 		
 		if(item != null){
 			
-			//色設定
-			if (item.getDirection() != info.aki017.TimetablePlusR.TimetableItem.Direction.Minakusa)
-			{
-				convertView.setBackgroundColor(Color.argb(25, 255,  0, 255));
-			}
-			switch(item.getWay())
-			{
-			case Kagayaki:
-				convertView.setBackgroundColor(Color.argb(25, 255, 0, 0));
-				break;
-			case Kasayama:
-				convertView.setBackgroundColor(Color.argb(25, 0, 255, 0));
-				break;
-			case Panasonic:
-				convertView.setBackgroundColor(Color.argb(25, 0, 0, 255));
-				break;
-			default:
-				break;
-			}
+			convertView.setBackgroundColor(item.getColor());
+			
 			//行き先表示
 			mDirection = (TextView)convertView.findViewById(R.id.Direction);
 			mDirection.setText(String.format("%s行", item.getDirection().getName()) );

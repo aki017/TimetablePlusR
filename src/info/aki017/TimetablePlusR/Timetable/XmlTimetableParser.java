@@ -14,7 +14,6 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import android.R.xml;
-import android.util.Log;
 import android.util.Xml;
 
 //TODO : 自分でも読めない
@@ -36,7 +35,7 @@ public class XmlTimetableParser implements TimetableParser {
 			// xmlPullParser.setInput(new
 			// StringReader("<Timetable><item><direction>南草津</direction><way>笠山</way><time>6:50</time></item></Timetable>"));
 		} catch (XmlPullParserException e) {
-			Log.e(TAG,"InputError");
+			Trace.e(TAG,"InputError");
 			e.printStackTrace();
 			return false;
 		}
@@ -46,15 +45,15 @@ public class XmlTimetableParser implements TimetableParser {
 			eventType = xmlPullParser.getEventType();
 			while (eventType != XmlPullParser.END_DOCUMENT) {
 				if (eventType == XmlPullParser.START_DOCUMENT) {
-					Log.d(TAG, "Start document");
+					Trace.d(TAG, "Start document");
 				} else if (eventType == XmlPullParser.END_DOCUMENT) {
-					Log.e(TAG, "End document");
-					Log.e(TAG, "何かがおかしい");
+					Trace.e(TAG, "End document");
+					Trace.e(TAG, "何かがおかしい");
 					return false;
 				} else if (eventType == XmlPullParser.START_TAG) {
 					Trace.v("start tag :" + xmlPullParser.getName());
 					if (xmlPullParser.getName().equalsIgnoreCase("Timetable")) {
-						Log.d(TAG,"Start Timetable :" + xmlPullParser.getAttributeValue( xmlPullParser.getNamespace(),"Station"));
+						Trace.d(TAG,"Start Timetable :" + xmlPullParser.getAttributeValue( xmlPullParser.getNamespace(),"Station"));
 						
 						if(!getTimetable(xmlPullParser,xmlPullParser.getAttributeValue( xmlPullParser.getNamespace(),"Station").replaceAll(" ", ""))) return false;
 					}
@@ -66,7 +65,7 @@ public class XmlTimetableParser implements TimetableParser {
 				eventType = xmlPullParser.next();
 			}
 		} catch (Exception e) {
-			Log.d(TAG, "Error"+e.getMessage());
+			Trace.d(TAG, "Error"+e.getMessage());
 			Trace.e(e);
 			return false;
 		}
@@ -75,7 +74,7 @@ public class XmlTimetableParser implements TimetableParser {
 
 	private boolean getTimetable(XmlPullParser xmlPullParser,String station)
 			throws XmlPullParserException, IOException {
-		Log.d(TAG, "getTimetable" + xmlPullParser.getDepth());
+		Trace.d(TAG, "getTimetable" + xmlPullParser.getDepth());
 		Timetable timetable = Timetable.getInstance();
 
 		int eventType;
@@ -84,7 +83,7 @@ public class XmlTimetableParser implements TimetableParser {
 				if (xmlPullParser.getName().equalsIgnoreCase("ITEM")) {
 					timetable.add(getItemData(xmlPullParser,station));
 				}
-				//Log.d(TAG, "Start tag " + xmlPullParser.getName());
+				//Trace.d(TAG, "Start tag " + xmlPullParser.getName());
 			} else if (eventType == XmlPullParser.END_TAG) {
 				if (xmlPullParser.getName().equalsIgnoreCase("Timetable")) return false;
 			}
@@ -94,24 +93,24 @@ public class XmlTimetableParser implements TimetableParser {
 
 	private TimetableItem getItemData(XmlPullParser xmlPullParser,String station)
 			throws XmlPullParserException, IOException {
-		Log.d(TAG, "getItemData" + xmlPullParser.getDepth());
+		Trace.d(TAG, "getItemData" + xmlPullParser.getDepth());
 		TimetableItem timetableItem = new TimetableItem();
 		timetableItem.setNo(Integer.parseInt(xmlPullParser.getAttributeValue(xmlPullParser.getNamespace(), "Number")));
 		int next;
 		// Itemが閉じるまで
 		while (((next = xmlPullParser.next()) != XmlPullParser.END_TAG)) {
-			Log.d(TAG, "getItemData_" + xmlPullParser.getDepth());
+			Trace.d(TAG, "getItemData_" + xmlPullParser.getDepth());
 			// Itemの要素
 			if (next == XmlPullParser.START_TAG) {
-				Log.d(TAG, "getItemData_ " + xmlPullParser.getName());
+				Trace.d(TAG, "getItemData_ " + xmlPullParser.getName());
 				if (xmlPullParser.getName().equalsIgnoreCase("DIRECTION")) {
 					if (xmlPullParser.next() == XmlPullParser.TEXT)
 						timetableItem.setDirection(xmlPullParser.getText());
-						Log.w(TAG,""+xmlPullParser.getText()+" -> "+timetableItem.getDirection().getName()+"");
+						Trace.w(TAG,""+xmlPullParser.getText()+" -> "+timetableItem.getDirection().getName()+"");
 				} else if (xmlPullParser.getName().equalsIgnoreCase("WAY")) {
 					if (xmlPullParser.next() == XmlPullParser.TEXT) {
 						timetableItem.setWay(xmlPullParser.getText().replaceAll(" ", ""));
-						Log.w(TAG,""+xmlPullParser.getText()+" -> "+timetableItem.getWay().getName()+"");
+						Trace.w(TAG,""+xmlPullParser.getText()+" -> "+timetableItem.getWay().getName()+"");
 					}
 				} else if (xmlPullParser.getName().equalsIgnoreCase("TIME")) {
 					if (xmlPullParser.next() == XmlPullParser.TEXT) {
@@ -120,7 +119,7 @@ public class XmlTimetableParser implements TimetableParser {
 								+ Integer.parseInt(t[1]));
 					}
 				} else {
-					Log.d(TAG, "getItemData_ " + xmlPullParser.getName());
+					Trace.d(TAG, "getItemData_ " + xmlPullParser.getName());
 					xmlPullParser.next();
 				}
 				while (xmlPullParser.next() != XmlPullParser.END_TAG) {
@@ -129,10 +128,10 @@ public class XmlTimetableParser implements TimetableParser {
 			}
 		}
 		timetableItem.setStation(station);
-		Log.d(TAG, timetableItem.getStation());
-		Log.d(TAG, timetableItem.getDirection().getName());
-		Log.d(TAG, timetableItem.getWay().getName());
-		Log.d(TAG, timetableItem.getTimeText());
+		Trace.d(TAG, timetableItem.getStation());
+		Trace.d(TAG, timetableItem.getDirection().getName());
+		Trace.d(TAG, timetableItem.getWay().getName());
+		Trace.d(TAG, timetableItem.getTimeText());
 		return timetableItem;
 	}
 
