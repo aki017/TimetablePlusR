@@ -79,29 +79,14 @@ public class TimetableFragment extends Fragment implements OnItemClickListener{
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
         ListView listView = (ListView) parent;
-        // 選択されたアイテムを取得します
-        //TimetableItem item = (TimetableItem) listView.getItemAtPosition(position);
         showDetails(listView,position);
-        /*
-		Intent intent = new Intent();
-		intent.setClass(this, DetailActivity.class);
-		intent.putExtra("TimeTableItem", item);
-		startActivity(intent);*/
 	}
 	
 	void showDetails(ListView listView,int index) {
 		TimetableItem item = (TimetableItem) listView.getItemAtPosition(index);
-        if (false) {
-            // We can display everything in-place with fragments, so update
-            // the list to highlight the selected item and show the data.
-            listView.setItemChecked(index, true);
-        } else {
-            // Otherwise we need to launch a new activity to display
-            // the dialog fragment with selected text.
-            Intent intent = new Intent();
-            intent.setClass(getActivity(), DetailsActivity.class);
-            intent.putExtra("item", item);
-            startActivity(intent);
-        }
+        Intent intent = new Intent();
+        intent.setClass(getActivity(), DetailsActivity.class);
+        intent.putExtra("item", item);
+        startActivity(intent);
     }
 }
